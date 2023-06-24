@@ -1,0 +1,315 @@
+import java.util.Arrays;
+class Main {
+    
+    //48 Ass-1
+    //water storage brute_force
+	public static void wall_brute(int[] A)
+    {
+        int water=0;
+      int n=A.length;
+      for(int i=0;i<n;i++)
+      {
+          for(int j=i+1;j<n;j++)
+          {
+           int ans=(j-i)*Math.min(A[i], A[j]);
+           water=Math.max(water, ans);  
+          }
+      }  
+      System.out.print(water);
+    }
+    
+     //water storage optimized
+	public static void wall(int[] A)
+    {
+     int water=0;
+     int n=A.length;
+     int i=0;
+     int j=n-1;
+     while(i<j)
+     {
+         int ans=(j-i)*Math.min(A[i], A[j]);
+         water=Math.max(water, ans); 
+         if(A[i]>A[j])
+         {
+             j--;
+         }
+         else
+         {
+             i++;
+         }
+     }
+      System.out.print(water);
+    }
+    
+    //sum pair brute_force
+    public static boolean sum_pair_brute(int[] A,int k)
+    {
+        int n=A.length;
+        for(int i=0;i<n;i++)
+        {
+            for(int j=i+1;j<n;j++)
+            {
+                int sum=A[i]+A[j];
+                if(sum==k)
+                {
+                   return true;
+                }
+            }
+        }
+        return false;
+    }
+    
+    //sum pair optimized(applicable only when array is sorted)
+    public static boolean sum_pair(int[] A,int k)
+    {
+        int n=A.length;
+        int i=0;
+        int j=n-1;
+        while(i<j)
+        {
+            int sum=A[i]+A[j];
+            if(sum==k)
+            {
+                return true;
+            }
+            else if(sum>k)  //reducing the sum by reducing end value
+            {
+                j--;
+            }
+            else if(sum<k) // increasing the sum by increasing the start val
+            {
+                i++;
+            }
+        }
+        return false;
+    }
+    
+    //48 HW-1
+    // sum pair count brute_force
+    public static void sum_pair_count_brute(int[] A, int k)
+    {
+        int cnt=0;
+        int n=A.length;
+        for(int i=0;i<n;i++)
+        {
+            for(int j=i+1;j<n;j++)
+            {
+                int sum=A[i]+A[j];
+                if(sum==k)
+                {
+                   cnt++;
+                }
+            }
+        }
+        System.out.print(cnt);
+    } 
+    
+    //sum pair count optimized (applicable only when array is sorted)
+    public static void sum_pair_count(int[] A, int k)
+    {
+     int i=0;
+     int j=A.length-1;
+     int paircnt=0;
+     while(i<j)
+     {
+         int sum=A[i]+A[j];
+         if(sum>k)
+         {
+             j--;
+         }
+         else if(sum<k)
+         {
+             i++;
+         }
+         else//sum==k
+         {
+             if(A[i]==A[j])
+             {
+                 int freq=(j-i)+1;
+                 paircnt=paircnt+freq*(freq-1)/2; 
+                 break;
+             }
+             else
+             {
+              int c1=0;
+              while(A[i+1]==A[i]);
+              {
+                  c1++;
+                  i++;
+              } 
+              int c2=0;
+              while(A[j-1]==A[j]);
+              {
+                  c2++;
+                  j--;
+              }
+              paircnt+=c1*c2;    
+             }
+             
+         }
+         
+     }
+     System.out.print(paircnt);
+        
+    }
+    
+     //48 HW-2
+    //No of rectangles from given array brute_force
+    public static void rectangle(int[] A, int k)
+    {
+        int n=A.length;
+        int count=0;
+        for(int i=0;i<n;i++)
+        {
+            for(int j=0;j<n;j++)
+            {
+                if(A[i]*A[j] < k)
+                {
+                    count++;
+                }
+            }
+        }
+        System.out.print(count);
+    }
+    
+    //No of rectangles from given array optimized
+    
+    
+    //Difference pair brute_force
+    public static boolean difference_pair_brute(int[] A, int k)
+    {
+        //Arrays.sort(A);
+        int n=A.length;
+        for(int i=0;i<n;i++)
+        {
+            for(int j=i+1;j<n;j++)
+            {
+                if(A[j]-A[i]==k)
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+    
+    
+    //Difference pair optimized
+    public static boolean difference_pair(int[] A, int k)
+    {
+        Arrays.sort(A);
+        int i=0;
+        int j=1;
+        while(j<A.length)
+        {
+            int diff=A[j]-A[i];
+            if(diff==k)
+            {
+                return true;
+            }
+            else if(diff<k) // val2-val1 and to increase diff we need to increase val2
+            {
+                j++;
+            }
+            else  //(diff>k) so to reduce diff shld increase val1
+            {
+                i++;
+            }
+        }
+        return false;
+   
+    }
+    
+    //Difference pair count brute_force
+    public static void difference_pair_count_brute(int[] A, int k)
+    {
+        Arrays.sort(A);
+        int cnt=0;
+        int n=A.length;
+        for(int i=0;i<n;i++)
+        {
+            if(i>0 && A[i]==A[i-1])
+            {
+               i++; //or continue
+            }
+            for(int j=i+1;j<n;j++)
+            {
+                if(A[j]-A[i]==k)
+                {
+                    while(j+1<n && A[j+1]==A[j])
+                    {
+                        j++;
+                    }
+                     cnt++;
+                    
+                }
+            }
+        }
+        
+    }
+    
+     //Difference pair count optimized
+    public static void difference_pair_count(int[] A, int k)
+    {
+        Arrays.sort(A);
+        int i=0;
+        int j=1;
+        int cnt=0;
+        while(j<A.length)
+        {
+            if(i>0 && A[i]==A[i-1] && A[j]==A[j-1]){
+                 // this condition is for test cases like [1,1,1,1,1,1] , [1,1,2, 2, 2] to avoid ArrayIndexOutofBound and extra count value
+                i++;
+                j++;
+                continue;
+            }
+            int diff=A[j]-A[i];
+            if(diff==k)
+            {
+                
+               cnt++;
+               i++;
+               j++;
+            }
+            else if(diff<k) // val2-val1 and to increase diff we need to increase val2
+            {
+                j++;
+            }
+            else  //(diff>k) so to reduce diff shld increase val1
+            {
+                i++;
+                if(i==j)
+                {
+                    j++;
+                }
+            }
+        }
+        System.out.print(cnt);
+   
+    }
+        
+    
+    
+    public static void main(String[] args) {
+        //int[] A={1, 5, 4, 3};
+        //wall_brute(A);
+        //wall(A);
+        //int[] A={1, 5, 7, 10};
+        //int k=8;         
+        //System.out.print(sum_pair_brute(A,k));
+        //System.out.print(sum_pair(A,k));
+        //sum_pair_count_brute(A, k);
+        //int[] A={1,1,1};
+        //int k=2;
+       // sum_pair_count(A, k);
+       //int[] A={1,2,4,5};
+       //int k=5;
+      //rectangle(A,k);
+      int[] A = {8, 12, 16, 4, 0, 20};
+      int k = 4;
+      //System.out.print(difference_pair_brute(A,k));
+      //System.out.print(difference_pair(A,k));
+      //difference_pair_count_brute(A,k);
+      difference_pair_count(A,k);
+    }
+}
