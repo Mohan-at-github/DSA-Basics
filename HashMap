@@ -18,7 +18,7 @@ public class Main {
       System.out.println(my_map);
     }
 }
-
+note:time complexity of all this operation is O(1) only and space complexity is O(n)  n--> size of the array 
 output:
 {1=80, 2=90, 3=70, 4=60, 5=96}
 70
