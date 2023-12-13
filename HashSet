@@ -20,7 +20,7 @@ public class Main {
   }
 }
 
-note:time complexity of all this operation is O(1) only and space complexity is O(n)  n--> size of the array
+note:time complexity of all this operation is O(1) only and space complexity is O(n)  n--> size of the array 
 
 output:
 [1, 2, 3, 4, 5]
