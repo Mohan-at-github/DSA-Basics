@@ -1,0 +1,30 @@
+import java.util.HashMap;
+public class Main {
+  public static void main(String[] args) {
+      HashMap<Integer,Integer> my_map=new HashMap<>();
+      my_map.put(1,80);
+      my_map.put(2,90);
+      my_map.put(3,70);
+      my_map.put(4,60);
+      my_map.put(5,96);
+      System.out.println(my_map);
+      System.out.println(my_map.get(3));
+      System.out.println(my_map.containsKey(5));
+      System.out.println(my_map.containsKey(6));
+      System.out.println(my_map.keySet());
+      System.out.println(my_map.size());
+      System.out.println(my_map.remove(5));
+      my_map.put(1,99);
+      System.out.println(my_map);
+    }
+}
+
+output:
+{1=80, 2=90, 3=70, 4=60, 5=96}
+70
+true
+false
+[1, 2, 3, 4, 5]
+5
+96
+{1=99, 2=90, 3=70, 4=60}
